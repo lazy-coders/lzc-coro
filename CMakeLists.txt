@@ -33,5 +33,5 @@ configure_package_config_file(
     "${PROJECT_BINARY_DIR}/${PROJECT_NAME}Config.cmake"
     INSTALL_DESTINATION
     ${CMAKE_INSTALL_DATAROOTDIR}/${PROJECT_NAME}/cmake)
-add_executable(coro main.cpp)
-target_include_directories(coro PUBLIC include)
+
+add_subdirectory(tests)

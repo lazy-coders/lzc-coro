@@ -1,6 +1,6 @@
-#include "d.hpp"
+#include <lzcoders/debug.hpp>
 #include "thread_pool.hpp"
-#include "coro.hpp"
+#include <lzcoders/coro.hpp>
 #include "io_reader.hpp"
 #include "co_spawn.hpp"
 constexpr std::size_t PoolSize = 1;

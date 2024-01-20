@@ -1,8 +1,8 @@
 #pragma once
 
 #include "thread_pool.hpp"
-#include "coro.hpp"
-#include "d.hpp"
+#include <lzcoders/coro.hpp>
+#include <lzcoders/debug.hpp>
 
 namespace lzcoders
 {
