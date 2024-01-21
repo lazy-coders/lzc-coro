@@ -1,6 +1,6 @@
 #pragma once
 #include <thread>
-#include "d.hpp"
+#include <lzcoders/debug.hpp>
 
 namespace lzcoders
 {

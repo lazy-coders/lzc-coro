@@ -3,7 +3,7 @@
 #include <coroutine>
 #include <future>
 #include <optional>
-#include <debug.hpp>
+#include <lzcoders/debug.hpp>
 
 namespace lzcoders
 {

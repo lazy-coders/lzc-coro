@@ -1,12 +1,12 @@
 cmake_minimum_required(VERSION 3.25)
 project(lzc-coro VERSION 0.1.0
                  DESCRIPTION "A simple header-only C++ library to use coroutines"
-                 HOMEPAGE "https://github.com/lzcoders/lzc-coro"
-                 CXX)
+                 LANGUAGES CXX)
 
-set(CMAKE_CXX_STANDARD 23)
-set(CMAKE_CXX_STANDARD_REQUIRED ON) 
+#set(CMAKE_CXX_STANDARD 23)
+#set(CMAKE_CXX_STANDARD_REQUIRED ON) 
 
+include(cmake/CPM.cmake)
 
 add_library(lzc-coro INTERFACE)
 target_include_directories(
@@ -24,14 +24,14 @@ install(TARGETS lzc-coro
         LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
         RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
 
-include(CMakePackageConfigHelpers)
-write_basic_package_version_file("lzc-coroConfigVersion.cmake"
-                                 VERSION ${PROJECT_VERSION}
-                                 COMPATIBILITY SameMajorVersion)
-configure_package_config_file(
-    "${PROJECT_SOURCE_DIR}/cmake/${PROJECT_NAME}Config.cmake.in"
-    "${PROJECT_BINARY_DIR}/${PROJECT_NAME}Config.cmake"
-    INSTALL_DESTINATION
-    ${CMAKE_INSTALL_DATAROOTDIR}/${PROJECT_NAME}/cmake)
+#include(CMakePackageConfigHelpers)
+#write_basic_package_version_file("lzc-coroConfigVersion.cmake"
+#                                 VERSION ${PROJECT_VERSION}
+#                                 COMPATIBILITY SameMajorVersion)
+#configure_package_config_file(
+#    "${PROJECT_SOURCE_DIR}/cmake/${PROJECT_NAME}Config.cmake.in"
+#    "${PROJECT_BINARY_DIR}/${PROJECT_NAME}Config.cmake"
+#    INSTALL_DESTINATION
+#    ${CMAKE_INSTALL_DATAROOTDIR}/${PROJECT_NAME}/cmake)
 
 add_subdirectory(tests)
