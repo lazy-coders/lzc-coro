@@ -44,7 +44,7 @@ struct task : std::coroutine_handle<promise<T>>
         d("Resuming this task");
         this->resume();
         d("Returning the result");
-        return this->promise().result_.get_future().get();
+        return this->promise().get_result();
     }
 
     auto get_future()
@@ -96,6 +96,12 @@ struct promise
 
         return t;
     }
+
+    T get_result()
+    {
+        return result_.get_future().get();
+    }
+
     std::promise<T> result_;
     std::shared_ptr<coro_execution_context> context_ = std::make_shared<default_execution_context>();
     std::optional<std::coroutine_handle<>> continuation_;
@@ -108,7 +114,7 @@ struct promise<void>
     std::suspend_always initial_suspend() noexcept { d(); return {}; }
     std::suspend_always final_suspend() noexcept { d(); return {}; }
     void unhandled_exception() { d(); throw; }
-    void return_void() { d(); }
+    void return_void() { d(); ended_.set_value(true); }
 
     template<typename U>
     auto await_transform(task<U> t)
@@ -127,6 +133,12 @@ struct promise<void>
 
         return t;
     }
+
+    void get_result()
+    {
+        ended_.get_future().get();
+    }
+    std::promise<bool> ended_;
     std::shared_ptr<coro_execution_context> context_ = std::make_shared<default_execution_context>();
 };
 

@@ -3,6 +3,7 @@
 #include <lzcoders/coro.hpp>
 #include "io_reader.hpp"
 #include "co_spawn.hpp"
+#include <gtest/gtest.h>
 constexpr std::size_t PoolSize = 1;
 std::atomic<int> tasks = 1;
 
@@ -42,7 +43,7 @@ lzcoders::task<void> http_acceptor_loop(lzcoders::thread_pool<PoolSize>& pool)
     co_return /*'a'*/;
 }
 
-int main()
+TEST(lzc_coro, simulated_http)
 {
     lzcoders::thread_pool<PoolSize> pool;
 
@@ -50,5 +51,4 @@ int main()
 
     while(tasks > 0)
         ;
-    return 0;
 }

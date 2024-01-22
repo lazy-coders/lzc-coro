@@ -91,7 +91,7 @@ void d(const auto_location& t, Args&&... args)
     std::clog << "\" }" << std::endl;
 }
 
-void d(const std::source_location& sl = std::source_location::current())
+inline void d(const std::source_location& sl = std::source_location::current())
 {
     d(auto_location("", sl));
 }

@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.25)
 project(lzc-coro VERSION 0.1.0
                  DESCRIPTION "A simple header-only C++ library to use coroutines"
+                 HOMEPAGE_URL "https://github.com/lazy-coders/lzc-coro"
                  LANGUAGES CXX)
 
 #set(CMAKE_CXX_STANDARD 23)
@@ -34,4 +35,5 @@ install(TARGETS lzc-coro
 #    INSTALL_DESTINATION
 #    ${CMAKE_INSTALL_DATAROOTDIR}/${PROJECT_NAME}/cmake)
 
+enable_testing()
 add_subdirectory(tests)
