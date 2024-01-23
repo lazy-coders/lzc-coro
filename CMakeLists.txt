@@ -35,5 +35,13 @@ install(TARGETS lzc-coro
 #    INSTALL_DESTINATION
 #    ${CMAKE_INSTALL_DATAROOTDIR}/${PROJECT_NAME}/cmake)
 
-enable_testing()
-add_subdirectory(tests)
+option(ENABLE_TESTS "Build tests" OFF)
+option(ENABLE_COVERAGE "If ENABLE_TESTS is ON then coverage could be produced" OFF)
+if(ENABLE_TESTS)
+    enable_testing()
+    if(ENABLE_COVERAGE)
+        include(cmake/coverage.cmake)
+        add_coverage_target("*/tests/*")
+    endif()
+    add_subdirectory(tests)
+endif()

@@ -22,10 +22,13 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
+    - name: install
+        run: sudo apt-get update && sudo apt-get install lcov #libxrandr-dev libxcursor-dev libudev-dev libopenal-dev libflac-dev libvorbis-dev libgl1-mesa-dev libegl1-mesa-dev freeglut3-dev # OpenGL dependencies only needed for SFML
+
     - name: Configure CMake
       # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
       # See https://cmake.org/cmake/help/latest/variable/CMAKE_BUILD_TYPE.html?highlight=cmake_build_type
-      run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DCMAKE_CXX_COMPILER=g++-13
+      run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DCMAKE_CXX_COMPILER=g++-13 -DENABLE_TEST -DENABLE_COVERAGE
 
     - name: Build
       # Build your program with the given configuration
@@ -37,3 +40,21 @@ jobs:
       # See https://cmake.org/cmake/help/latest/manual/ctest.1.html for more detail
       run: ctest -C ${{env.BUILD_TYPE}}
 
+    - name: generate coverage
+      working-directory: ./build
+      run: |
+        make cov
+
+    - name: Install gcovr
+      run: |
+        pip install -r requirements.txt
+
+    - name: Generate JSON coverage report
+      working-directory: ./build
+      run: |
+        gcovr -r .. . --branches --cobertura --filter ../include > coverage.xml
+
+    - name: Upload coverage reports to Codecov
+      uses: codecov/codecov-action@v3
+      env:
+        CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}

@@ -31,6 +31,9 @@
 		"source=${localEnv:HOME}/.gitconfig,target=/home/${localEnv:USER}/.gitconfig,type=bind"
 	],
 
+	"containerEnv": {
+		"SHELL": "/bin/bash"
+	},
 	// Uncomment to connect as an existing user other than the container default. More info: https://aka.ms/dev-containers-non-root.
 	"remoteUser": "${localEnv:USER}"
 	

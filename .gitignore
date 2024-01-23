@@ -30,3 +30,10 @@
 *.exe
 *.out
 *.app
+
+# Visual Studio Code personal configuration
+.vscode
+
+# Build directory
+build
+Testing
