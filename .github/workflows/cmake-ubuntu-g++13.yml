@@ -25,6 +25,9 @@ jobs:
     - name: install
       run: sudo apt-get update && sudo apt-get install lcov
 
+    - name: configure required version of gcov
+      run: sudo update-alternatives --install /usr/bin/gcov gcov /usr/bin/gcov-13 90
+
     - name: Configure CMake
       # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
       # See https://cmake.org/cmake/help/latest/variable/CMAKE_BUILD_TYPE.html?highlight=cmake_build_type
