@@ -1,5 +1,35 @@
 [![codecov](https://codecov.io/gh/lazy-coders/lzc-coro/graph/badge.svg?token=O1N5INRR9G)](https://codecov.io/gh/lazy-coders/lzc-coro) [![CMake on Ubuntu with G++-13](https://github.com/lazy-coders/lzc-coro/actions/workflows/cmake-ubuntu-g++13.yml/badge.svg)](https://github.com/lazy-coders/lzc-coro/actions/workflows/cmake-ubuntu-g++13.yml)
 
-# LaZyCoders COROutine library
+# lzc-coro - LaZyCoders COROutine library
 
-WIP: at this momento the repository is in maintenance mode.
+This small library have the objective of understand coroutine facility. It is
+too a playground to test some ideas about how coroutines could work.
+
+# The basics
+
+This library only implements the `task`: a coroutine that can do `co_await`.
+
+All `tasks` can be awaitable and are created stopped. That means a coroutine do
+not start executing code until the call to `operator()` of the `task` is called.
+
+```mermaid
+sequenceDiagram
+    box Main Thread
+        participant main
+        participant some_task
+        participant other_task
+    end
+    box Other Thread
+        participant async_function
+    end
+
+    main->>some_task: operator()
+    someTask->>other_task: co_await
+    other_task->>async_function: co_await
+
+    Note over other_task,async_function: The coroutine wait until completion<br/>and continues in the original thread
+
+    async_function-->>other_task
+    other_task-->some_task
+    some_task-->main
+```

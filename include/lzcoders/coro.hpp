@@ -17,11 +17,7 @@ struct coro_execution_context
 
 struct default_execution_context : coro_execution_context
 {
-    void resume(std::coroutine_handle<> h) override
-    {
-        d();
-        h.resume();
-    }
+    void resume(std::coroutine_handle<> h) override;
 };
 
 template<typename T>

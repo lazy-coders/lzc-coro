@@ -4,18 +4,18 @@ project(lzc-coro VERSION 0.1.0
                  HOMEPAGE_URL "https://github.com/lazy-coders/lzc-coro"
                  LANGUAGES CXX)
 
-#set(CMAKE_CXX_STANDARD 23)
-#set(CMAKE_CXX_STANDARD_REQUIRED ON) 
-
 include(cmake/CPM.cmake)
 
-add_library(lzc-coro INTERFACE)
+add_library(lzc-coro)
+target_compile_features(lzc-coro PUBLIC cxx_std_23)
+target_sources(lzc-coro PRIVATE src/lzcoders/default_execution_context.cpp)
+target_include_directories(lzc-coro PUBLIC include)
+target_compile_options(lzc-coro PUBLIC "-fcoroutines")
 target_include_directories(
     lzc-coro
     INTERFACE $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
               $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>)
 
-target_compile_features(lzc-coro INTERFACE cxx_std_23)
 
 
 include(GNUInstallDirs)
