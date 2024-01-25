@@ -22,14 +22,11 @@ sequenceDiagram
     box Other Thread
         participant async_function
     end
-
     main->>some_task: operator()
-    someTask->>other_task: co_await
+    some_task->>other_task: co_await
     other_task->>async_function: co_await
-
     Note over other_task,async_function: The coroutine wait until completion<br/>and continues in the original thread
-
-    async_function-->>other_task
-    other_task-->some_task
-    some_task-->main
+    async_function-->>other_task:resume()
+    other_task-->>some_task:resume()
+    some_task-->>main:future.get()
 ```
