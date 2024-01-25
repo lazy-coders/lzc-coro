@@ -14,12 +14,12 @@ not start executing code until the call to `operator()` of the `task` is called.
 
 ```mermaid
 sequenceDiagram
-    box Main Thread
+    box LightGrey Main Thread
         participant main
         participant some_task
         participant other_task
     end
-    box Other Thread
+    box LightGrey  Other Thread
         participant async_function
     end
     main->>some_task: operator()
